@@ -62,7 +62,7 @@ Training one branch never updates the other. At inference, exactly one branch ex
 ## Setup
 
 ```bash
-git clone https://github.com/has9800/crossattn-fork.git
+git clone https://github.com/has9800/vlm-cross-attn-fork-code.git
 cd crossattn-fork
 chmod +x setup.sh reproduce.sh
 ./setup.sh
