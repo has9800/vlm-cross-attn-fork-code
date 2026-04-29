@@ -1,7 +1,7 @@
 # Architectural Access Control via Cross-Attention Forking in Diffusion Transformers
 
 **Hasan Ahmed** · Independent Researcher  
-📄 [Paper (Zenodo)](https://zenodo.org/YOUR_DOI_HERE) · 🤖 Built on [RDT-170M](https://huggingface.co/robotics-diffusion-transformer/rdt-170m)
+📄 [Paper (Zenodo)](https://zenodo.org/19834989) · 🤖 Built on [RDT-170M](https://huggingface.co/robotics-diffusion-transformer/rdt-170m)
 
 ---
 
@@ -14,7 +14,7 @@ This repository contains the full implementation for the paper. The core idea is
 
 Training one branch never updates the other. At inference, exactly one branch executes per forward pass. The non-selected branch consumes zero FLOPs.
 
-**Key results on RDT-170M + Unitree G1 data (3 seeds):**
+**Results on RDT-170M:**
 
 | Metric | Result |
 |---|---|
@@ -62,7 +62,7 @@ Training one branch never updates the other. At inference, exactly one branch ex
 ## Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/crossattn-fork.git
+git clone https://github.com/has9800/crossattn-fork.git
 cd crossattn-fork
 chmod +x setup.sh reproduce.sh
 ./setup.sh
@@ -145,7 +145,7 @@ action = model(x, freq, t, lang_c, img_c, auth=1)
 
 ---
 
-## Unpublished Supporting Experiments
+## Other Supporting Experiments
 
 `test_shared_self_attention_interleaving.py` tests whether the shared self-attention blocks (upstream of the fork) behave differently depending on which route is selected. Result: 0.0000% relative difference across all 12 shared blocks, confirmed over 30 batches. This holds by construction for any architecture where the fork point is strictly downstream of the shared encoder. The code is included for completeness.
 
@@ -158,7 +158,7 @@ action = model(x, freq, t, lang_c, img_c, auth=1)
   title   = {Architectural Access Control via Cross-Attention Forking in Diffusion Transformers for Humanoid Robotics},
   author  = {Ahmed, Hasan},
   year    = {2026},
-  url     = {https://zenodo.org/YOUR_DOI_HERE}
+  url     = {https://zenodo.org/19834989}
 }
 ```
 
