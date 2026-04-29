@@ -260,11 +260,10 @@ def _ensure_rt1_data(rt1_dir):
             allow_patterns='data/chunk-000/episode_00000[0-4].parquet',
             local_dir=os.path.dirname(os.path.dirname(rt1_dir)),
         )
-        print('  [rt1] download complete.')
+        print('[rt1] download complete.')
     except Exception as e:
         raise RuntimeError(
-            f'RT-1 data missing and auto-download failed: {e}\n'
-            f'Run manually: see docstring at top of file.'
+            f'RT-1 data missing and auto-download failed: {e} Run manually: see docstring at top of file.'
         )
 
 
