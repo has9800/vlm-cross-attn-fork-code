@@ -1,0 +1,37 @@
+# model checkpoints
+*.pt
+*.bin
+*.safetensors
+
+# data
+*.npz
+*.parquet
+vla_data/
+
+# results (keep json structure but not large outputs)
+trajectory_comparison.npz
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# jupyter
+.ipynb_checkpoints/
+
+# env
+.env
+venv/
+.venv/
+
+# plots (regenerate from scripts)
+*.png
+*.pdf
+!paper/
+
+# vast.ai artifacts
+nohup.out
