@@ -244,6 +244,29 @@ def evaluate(baseline_model, forked_model, runner, loader, device, active_dims):
         "base_vs_fork_auth1_mean_cosine": cos_sum / n,
     }
 
+def _ensure_rt1_data(rt1_dir):
+    """Download RT-1 slice if not already present."""
+    files = glob.glob(os.path.join(rt1_dir, '*.parquet'))
+    if files:
+        print(f'  [rt1] found {len(files)} parquet files, skipping download.')
+        return
+    print('  [rt1] data not found, downloading 5 episodes from HuggingFace (~20MB)...')
+    os.makedirs(rt1_dir, exist_ok=True)
+    try:
+        from huggingface_hub import snapshot_download
+        snapshot_download(
+            repo_id='IPEC-COMMUNITY/fractal20220817_data_lerobot',
+            repo_type='dataset',
+            allow_patterns='data/chunk-000/episode_00000[0-4].parquet',
+            local_dir=os.path.dirname(os.path.dirname(rt1_dir)),
+        )
+        print('  [rt1] download complete.')
+    except Exception as e:
+        raise RuntimeError(
+            f'RT-1 data missing and auto-download failed: {e}\n'
+            f'Run manually: see docstring at top of file.'
+        )
+
 
 # ─────────────────────────────────────────────────────────────
 # Main
@@ -300,6 +323,7 @@ def main(args):
 
     # ── RT-1 held-out ──
     print("\n[3/5] Loading RT-1 held-out slice...")
+    _ensure_rt1_data(args.rt1_dir)
     rt1 = RT1HeldOut(
         args.rt1_dir, horizon=64, stride=8, max_episodes=args.max_episodes,
         lang_len=baseline_runner.model.lang_cond_pos_embed.shape[1],
