@@ -253,6 +253,30 @@ class G1Dataset(Dataset):
             "action_mask": torch.from_numpy(self.mask),
             "ctrl_freqs": torch.tensor(25.0),
         }
+    
+    def _ensure_g1_data(data_dir):
+        """Download G1 dataset if not already present."""
+        import glob
+        files = glob.glob(os.path.join(data_dir, '*.parquet'))
+        if files:
+            print(f'  [g1] found {len(files)} parquet files, skipping download.')
+            return
+        print('  [g1] data not found, downloading from HuggingFace...')
+        os.makedirs(data_dir, exist_ok=True)
+        try:
+            from huggingface_hub import snapshot_download
+            snapshot_download(
+                repo_id='unitreerobotics/G1_MountCameraRedGripper_Dataset',
+                repo_type='dataset',
+                allow_patterns='data/chunk-000/*.parquet',
+                local_dir=os.path.dirname(os.path.dirname(data_dir)),
+            )
+            print('  [g1] download complete.')
+        except Exception as e:
+            raise RuntimeError(
+                f'G1 data missing and auto-download failed: {e}\n'
+                f'Run manually: see docstring at top of file.'
+            )
 
 
 # ── Main ──
@@ -269,6 +293,7 @@ def run(args):
 
     # Data
     print("[1/6] Loading G1 data...")
+    _ensure_g1_data(args.data_dir) 
     dataset = G1Dataset(
         args.data_dir, horizon=64, stride=8,
         action_noise_std=args.action_noise,
