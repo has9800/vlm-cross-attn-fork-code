@@ -24,6 +24,8 @@ Training one branch never updates the other. At inference, exactly one branch ex
 | VRAM vs matched-scope LoRA | −17% |
 | Latency vs full-DiT LoRA | −25% |
 
+![Action subspace separation before and after cross-attention forking](fig_subspace_separation_v4.png)
+
 ---
 
 ## Repository Structure
