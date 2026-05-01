@@ -1,6 +1,6 @@
 # Architectural Access Control via Cross-Attention Forking in Diffusion Transformers
 
-**Hasan Ahmed** · Independent Researcher  
+**Hasan Ahmed** - Author
 [Paper (Zenodo)](https://zenodo.org/19834989) - Built on [RDT-170M](https://huggingface.co/robotics-diffusion-transformer/rdt-170m)
 
 ---
